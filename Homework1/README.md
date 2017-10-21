@@ -66,6 +66,9 @@
   Weitere:
   
   1. Stark begrenzten Scope eines Tests. D.h., ein Test Case muss nur eine Funktionalität testen (eine Methode) und nicht anders. Wenn man lange über dem Titel eines Tests wundert, dann testet wahrscheinlich dies zu viele Dinge auf einmal.
+  
+  Zum Beispiel, für eine Divisionsmethode soll es separate Tests für Division mit 2 positive, 2 negative Zahlen und dazu noch die 2 Fälle mit je eine positive und eine negative Zahl.
+  
   1. Nie Tests so schreiben, dass sie nur dann erfolgreich sind, wenn diese in der richtigen Reihenfolge laufen. Wenn Funktionalität mehrere Schritte testen soll, dann mit Fixtures bevor jedem Test die notwendige Umgebung erstellen und Tests gekapselt und unabhängig lassen.
   
   ```Java
@@ -108,6 +111,8 @@
   1. Unit Tests sind keine Integration Tests, die mussen von externe Dinge wie Datenbank- oder Internetverbindung unabhängig sein. Alles, was die getestete Methode braucht als klare und leicht verständliche Mock-ups einfügen.
   
   Sonst ist man nicht sicher, wo das Problem liegt, wenn ein Test unerfolgreich war. Gilt natürlich nicht, wenn wir  z.B. die DB Verbindung testen wollen.
+  
+  Z.B. falls wir sehen wollen, ob in einem Frontend nach einem Request zum Server alles richtig in dem lokalen State gespeichert wird, können wir unser API-Service Controller mocken, so dass es immer hardkodiertes JSON zurückgibt.
   1. So wenig Vorbedingungen wie möglich. Vorbedingungen sind nur dafür da, um sicher zu stellen, dass das Test in der richtigen Umgebung ausgeführt wird.
   
   Leben ist nicht immer so wie wir denken. Tests sollen das auch zeigen.
@@ -161,7 +166,13 @@
   }
   ```
   
-  Quelle: Blogpost von Steve Sanderson -> http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/ + eigene Interpretation
+  Quelle: Blogpost von Steve Sanderson -> http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/ + eigene Interpretation + VL Softwaretechnik
   
 - b)
+
+  1. Wir wollten sicherstellen, dass das Frontend Client einer Anwendung immer das richtige State hat. Da der Server aber nicht immer alles notwendiges schickt, sondern nur eine Delta von dem JSON Baum, war das ein notwendiges Test. Rekursiv in Javascript JSON Bäume vergleichen und ändern ist nicht so schwierig. Ein Test könnte man aber nur dann sinnvol schreiben, wenn man den Anfang und den Ergebnissbaum hardkodiert. Solche zu konstruieren, die alle Fälle abdecken und nicht zu unverständlich werden war aber wesentlich aufwändiger als die Funktionalität zu implementieren.
+  1. JSON Struktur hat sich verändert, Test war nicht mehr optimal (und testete nicht alle Fälle), wurde geändert.
+  1. War aber ein gutes Test, da bei Struktur Änderungen könnten wir trotzdem leicht sicherstellen, dass die vorige Fäller richtig behandelt wurden.
+  
+
 

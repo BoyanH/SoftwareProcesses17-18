@@ -185,26 +185,38 @@ Laut einer Studie [1] aber, sind die Vorteile von Durchsichten auch Wissenaustau
 
 1. [Expectations, Outcomes, and Challenges of Modern Code Review - 2013, Alberto Bacchelli, Christian Bird](http://sback.it/publications/icse2013.pdf)
 
--b)
+- b)
 
-  - **runChild()** - TestMethode wird als ignoriert behandelt, obwohl sie die Annotation "Ignored" nicht enthält.
-  - **runNotIgnored()** - ?
-  - **runIgnored()** - ?
-  - **describeChild()** - ?
-  - **getChildren()** - ?
-  - **computeTestMethods()** - Returns rules instead of test methods.
-  - **validateConstructor() + method stack** - ?
-  - **validateInstanceMethods() + method stack** - include the source of `validateTestMethods()` in `validateInstanceMethods` to improve readability; Also only validate test methods if there are test methods to run;
+  - `runChild()` - Test Method is treated as 'ignored' even though it doesn't have `@Ignore` annotation. Tests with the `@Ignore` annotation are evaluated.
+  - `runNotIgnored()` - ?
+  - `runIgnored()` - ?
+  - `describeChild()` - ?
+  - `getChildren()` - ?
+  - `computeTestMethods()` - Returns rules instead of test methods.
+  - `validateConstructor()` + method stack - ?
+  - `validateInstanceMethods()` + method stack - include the source of `validateTestMethods()` in `validateInstanceMethods` to improve readability;
+  - `validateFields()` -  no javadoc;
+  - `validateRuleField()` - `MethodRule` has been replaced by `TestRule`, which also supports class rules.
+  - `createTest()` - ?
+  - `testName()` - ?
+  - `methodBlock()` - uses deprecated methods
+  - `rest of 4 methods` - ?
 
 - c) **Code Review Metrics**
 
-  - **runChild()** - 8 min - 6 lines
-  - **runNotIgnored()** - 14 min - 12 lines
-  - **runIgnored()** - 1 min - 1 line
-  - **describeChild()** - 10 min - 2 lines
-  - **getChildren()** - 1 min - 1 line
-  - **computeTestMethods()** - 1 min - 1 line
-  - **validateConstructor() + method stack** - 6 min - 12 lines
-  - **validateInstanceMethods() + method stack** - 12 min - 8 lines
-  - **validateRuleFiled()** - 
+  - `runChild()` - 8 min - 6 lines
+  - `runNotIgnored()` - 14 min - 12 lines
+  - `runIgnored()` - 1 min - 1 line
+  - `describeChild()` - 10 min - 2 lines
+  - `getChildren()` - 1 min - 1 line
+  - `computeTestMethods()` - 1 min - 1 line
+  - `validateConstructor()` + method stack - 6 min - 12 lines
+  - `validateInstanceMethods()` + method stack - 12 min - 8 lines
+  - `validateFields()` - 7 min - 3 lines
+  - `validateRuleField()` - 12 min - 6 lines
+  - `createTest()` - 1 min - 1 line
+  - `testName()` - 1 min - 1 line
+  - `methodBlock()` + stack - 23 min - 31 lines
+  - `rest of 4 methods` - 2 min - 11 lines
 
+Totaler Aufwand = 99 min für 96 Codezeilen. Also ~ 1 Min/Codezeile. Aber nur 2 Defekte und 3 Verbesserungsmöglichkeiten. Also 45 min pro Defekt

@@ -174,5 +174,19 @@
   1. JSON Struktur hat sich verändert, Test war nicht mehr optimal (und testete nicht alle Fälle), wurde geändert.
   1. War aber ein gutes Test, da bei Struktur Änderungen könnten wir trotzdem leicht sicherstellen, dass die vorige Fäller richtig behandelt wurden.
   
+## Aufgabe 3
 
+- a)
 
+*(Aus den Softwaretechnik Folien)* - Durchsichten sind ein Prozess, wobei ein oder mehrere Entwickler sich ein Stück Code anschauen, wobei die diesen Code nicht geschrieben haben. Das Ziel ist, Logiks- und Übersetzungsfehler zu entdecken, die Verständis der Anforderungen zu validieren und ob die Automatische Tests für den Code sinnvoll sind. Wichtig ist, dass bei Durchsichten den Code gar nicht ausgeführt wird.
+Laut einer Studie [1] aber, sind die Vorteile von Durchsichten auch Wissenaustausch, bessere Bekkantheit der Teammitglieder mit dem Code, und effizientere und robustere Implementierungen für die Probleme im Code finden. 
+
+**Quellen:**
+
+1. [Expectations, Outcomes, and Challenges of Modern Code Review - 2013, Alberto Bacchelli, Christian Bird](http://sback.it/publications/icse2013.pdf)
+
+- b)
+
+- c)
+
+### Code Review Metrics

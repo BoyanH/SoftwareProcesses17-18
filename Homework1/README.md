@@ -185,8 +185,26 @@ Laut einer Studie [1] aber, sind die Vorteile von Durchsichten auch Wissenaustau
 
 1. [Expectations, Outcomes, and Challenges of Modern Code Review - 2013, Alberto Bacchelli, Christian Bird](http://sback.it/publications/icse2013.pdf)
 
-- b)
+-b)
 
-- c)
+  - **runChild()** - TestMethode wird als ignoriert behandelt, obwohl sie die Annotation "Ignored" nicht enthält.
+  - **runNotIgnored()** - ?
+  - **runIgnored()** - ?
+  - **describeChild()** - ?
+  - **getChildren()** - ?
+  - **computeTestMethods()** - Returns rules instead of test methods.
+  - **validateConstructor() + method stack** - ?
+  - **validateInstanceMethods() + method stack** - include the source of `validateTestMethods()` in `validateInstanceMethods` to improve readability; Also only validate test methods if there are test methods to run;
 
-### Code Review Metrics
+- c) **Code Review Metrics**
+
+  - **runChild()** - 8 min - 6 lines
+  - **runNotIgnored()** - 14 min - 12 lines
+  - **runIgnored()** - 1 min - 1 line
+  - **describeChild()** - 10 min - 2 lines
+  - **getChildren()** - 1 min - 1 line
+  - **computeTestMethods()** - 1 min - 1 line
+  - **validateConstructor() + method stack** - 6 min - 12 lines
+  - **validateInstanceMethods() + method stack** - 12 min - 8 lines
+  - **validateRuleFiled()** - 
+

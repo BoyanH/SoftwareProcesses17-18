@@ -1,10 +1,7 @@
 ## Aufgabe 3
 
 - b)
-  - runChild Methode, beim 1. lesen, nach ein bisschen Orientierung in der Klasse.
-  
-  
-  Zeile 68 hat die falsche if Bedingung, genau die ignorierte Klassen werden werden als ingnoriert bearbeitet und umgekehrt
+  - runChild: Zeile 68 hat die falsche if Bedingung, genau die ignorierte Klassen werden werden als ingnoriert bearbeitet und umgekehrt
   
   ```Java
     if (method.getAnnotation(Ignore.class) == null) {
@@ -69,6 +66,18 @@
 	long timeout() default 0L; 
   ```
   
+  - possiblyExpectingExceptions: exceptsException ruft sowieso getExpectedException, Code könnte in eine Methode vereinigt werden für bessere Lesbarkeit. Man könnte dann nach Class.None prüfen, da dass sowieso das default Value ist für den Annotation
+  
+  ```Java
+    @Deprecated
+	protected Statement possiblyExpectingExceptions(FrameworkMethod method,
+			Object test, Statement next) {
+		Test annotation= method.getAnnotation(Test.class);
+		return expectsException(annotation) ? new ExpectException(next,
+				getExpectedException(annotation)) : next;
+	}
+  ```
+  
   - Metrics Boyan
   
     - methodBlock: 18 Zeilen, 23 Minuten (+ Verständniss über aufgerufene Methoden)
@@ -96,3 +105,7 @@
     - getExpectedException: 4 Zeilen, 2 Minuten
     - expectesException: 1 Zeilen, weniger als 1 Minute
     - getTimeout: 3 Zeilen, ~8 Minuten
+    
+    
+    - Insgesammt, mit generelles Verständniss und nicht spezifisch für irgenwelche Methode: ~2h 20m
+    - ~1 Defekt pro Stunde. Wurde aber deutlich länger dauern automatisierte Tests zu bauen, wurden auch weitere Verbesserungsmöglichkeiten gefunden, für also insgesammt 3 Defekte pro Stunde

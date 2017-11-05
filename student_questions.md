@@ -30,7 +30,7 @@ Ja. CMMI legt wert auf gut ausgeführte Prozesse und dafür sind auch unterstüt
 
 -  **Diagram aus der Übung?**
 
-*TODO: Photo of Diagram*
+![cmmi_diagram]( cmmi_diagram.png )
 
 -  **Welchen Mehrwert haben Stufe 4 und 5 für ein Unternehmen abgesehen von dem Stempel bzw. Auszeichnung. Die meisten Unternehmen stoppen bei Stufe 3. Warum wird diese extra Meile nicht gegangen?**
 

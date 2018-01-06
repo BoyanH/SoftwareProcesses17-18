@@ -1,0 +1,16 @@
+{
+  "name": "popularity",
+  "version": "1.0.0",
+  "description": "simple node script to gather popularity data for cataclysm dda from google trends",
+  "main": "popularity.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Boyan Hristov",
+  "license": "ISC",
+  "dependencies": {
+    "country-list": "^1.1.0",
+    "google-trends-api": "^4.3.0",
+    "json2csv": "^3.11.5"
+  }
+}

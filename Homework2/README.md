@@ -48,7 +48,12 @@ Ja um nicht unnötiges Code zu schreiben.
 
 **10. What is the relation between test cases produced via TDD and a specification?**
 
-Testfälle in TDD sind eine Art "ausführbare Dokumentation". Sie sind anhand der Anforderungen geschrieben und liefern Information über alle nötige Funktionalität des Programms. Genau was die Spezifikation auch macht.
+Testfälle in TDD sind eine Art "ausführbare Dokumentation". Sie sind 
+anhand der Anforderungen geschrieben und liefern Information über alle 
+nötige Funktionalität des Programms. Genau was die Spezifikation auch 
+macht. Testfälle sind aber KEINE vollständige Spezifikation, da diese 
+nicht alle mögliche Fälle abdecken und keine nicht-funktionale 
+Anforderungen prüfen.
 
 **11. Ward Cunningham argues that test driven development is not a test technique. What does he mean?**
 

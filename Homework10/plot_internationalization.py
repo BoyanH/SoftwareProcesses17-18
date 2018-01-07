@@ -17,9 +17,6 @@ for i in range(len(popularity_data_sets)):
                                      range(len(popularity_data_sets[i][:, 0]))]
     popularity_data_sets[i][:, 1] = np.array(popularity_data_sets[i][:, 1], dtype=int)
 
-dates_axis = []
-localization_commit_counts = []
-
 # declare corresponding colors
 colors = ['red', 'green', 'blue', 'purple']
 

@@ -262,7 +262,7 @@ def code_break(self):
 			if guess is None:
 				print('Common, don\'t change your code in runtime, loser! Give me some feedback again!')
 
-			feedback = self.get_user_feedback()
+			feedback = self.get_user_feedback(guess)
 
 			if feedback is None:
 				print('gtfo loser!')
@@ -273,3 +273,71 @@ def code_break(self):
 ```
 
 ## 10. Blackbox
+* get_user_feedback(self, guess)
+  * Preconditions:
+    * ai has guessed a code
+	* code guess is valid
+  * Postconditions:
+	* user gives a valid guess (as per description above
+
+## 10. Whitebox
+```python
+def get_user_feedback(self, guess):
+	print("Is this your code: " + guess)
+	response = input("Feedback pls: ")
+
+	if self.validate_user_feedback(response):
+		print("invalid response")
+		self.get_user_feedback(guess)
+	
+	# format response
+	chars = list(response)
+	chars.sort(reverse=True)
+	return "".join(chars)
+	
+```
+
+## 11. Blackbox
+* validate_user_feedback(self, guess):
+  * Preconditions:
+	* code is valid
+  * Postconditions:
+	* returns True if feedback is of length 4 and has proper format
+
+## 11. Whitebox
+
+```python
+def validate_user_feedback(self, response):
+	allowed = ['w', 'b', '.']
+
+	if len(response) != 4:
+		print("Feedback not of length 4")
+		return False
+	elif len(response) - len(response.replace('.', '') > 2:
+		print("No way to have more than 2 points")
+		return False
+
+	for c in response:
+		if c not in allowed:
+			print(str(c) + " is not an allowed character")
+			return False
+	
+	return True
+```
+
+## 12. Blackbox
+* ai_guess(self, feedback)
+  * Preconditions:
+    * user feedback is valid
+	* user feedback is not 'wwww'
+  * Postconditions:
+    * returns a new valid guess
+
+## 12. Whitebox
+```python
+def ai_guess(self, feedback):
+	new_guess = self.generate_code()
+	return new_guess
+```
+
+

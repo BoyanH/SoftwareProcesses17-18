@@ -325,6 +325,22 @@ def validate_user_feedback(self, response):
 	return True
 ```
 
+## 13. Blackbox
+* __init__()
+  * Preconditions
+    * none
+  * Postconditions:
+    * Initialized variables needed for ai_guess
+
+## 13. Whitebox
+
+```python
+def __init__(self):
+	self.pool = self.gen_pool()
+	self.unused = self.pool + []
+```
+
+
 ## 12. Blackbox
 * ai_guess(self, feedback)
   * Preconditions:
@@ -338,6 +354,28 @@ def validate_user_feedback(self, response):
 def ai_guess(self, feedback):
 	new_guess = self.generate_code()
 	return new_guess
+```
+
+## 12. Whitebox
+```python
+def ai_guess(self, feedback):
+	self.pool = self.eliminate_from_pool(feedback, self.last_guess)
+
+	if len(self.pool) == 1:
+		return self.pool[0]
+	elif len(self.pool) == 0:
+		return None
+
+	scores  = [self.get_score(x, self.pool) for x in self.unused]
+	best_score = scores.argmax()
+
+	result = self.unused[best_score]
+	self.unused.remove(result)
+	self.pool.remove(result)
+
+	self.last_guess = result
+	
+	return result
 ```
 
 

@@ -303,23 +303,32 @@ def get_user_feedback(self, guess):
 	* code is valid
   * Postconditions:
 	* returns True if feedback is of length 4 and has proper format
+	* prints non-correctness factor to stdout if flag for not printing is not set
+	  * needed for later, we got back to this black & white boxes
 
 ## 11. Whitebox
 
 ```python
-def validate_user_feedback(self, response):
+def validate_user_feedback(self, response, print_out=True):
 	allowed = ['w', 'b', '.']
 
 	if len(response) != 4:
-		print("Feedback not of length 4")
+		if print_out:
+			print("Feedback not of length 4")
 		return False
 	elif len(response) - len(response.replace('.', '') > 2:
-		print("No way to have more than 2 points")
+		if print_out:
+			print("No way to have more than 2 points")
+		return False
+	elif len(response) - len(response.replace('b', '') == 1:
+		if print_out:
+			print("No way that only one character is not at its right position!")
 		return False
 
 	for c in response:
 		if c not in allowed:
-			print(str(c) + " is not an allowed character")
+			if print_out:
+				print(str(c) + " is not an allowed character")
 			return False
 	
 	return True
@@ -356,8 +365,22 @@ def ai_guess(self, feedback):
 	return new_guess
 ```
 
-## 12. Whitebox
+## 13. Blackbox
+* ai_guess(self, feedback), a probabilistic approach
+  * Preconditions
+    * user feedback is valid
+    * user feedback is not 'www'
+  * Postconditions
+    * returns a guess which would eliminate as much
+      combinations as possible
+    * return None (no guess) if user's feedback leads to a
+      non existant combination
+    * returns the correct guess if only one possible combination remains
+
+## 13. Whitebox
 ```python
+import numpy as np
+
 def ai_guess(self, feedback):
 	self.pool = self.eliminate_from_pool(feedback, self.last_guess)
 
@@ -367,15 +390,101 @@ def ai_guess(self, feedback):
 		return None
 
 	scores  = [self.get_score(x, self.pool) for x in self.unused]
-	best_score = scores.argmax()
+	best_score = np.array(scores).argmax()
 
 	result = self.unused[best_score]
+
 	self.unused.remove(result)
-	self.pool.remove(result)
+
+	try:
+		self.pool.remove(result)
+	except:
+		pass
 
 	self.last_guess = result
 	
 	return result
 ```
 
+## 14. Blackbox
+* self.eliminate_from_pool(feedback, self.last_guess)
+  * Preconditions:
+    * feedback is a string, though it might be an empty string
+    * self.pool is a pool of possible combinations
+    * when feedback and last_guess are not empty, they are both of length 4 and have no duplicates
+    * self.last_guess is the guess corresponding to the feedback
+  * Postconditions:
+  	* self.pool is self.pool without all combinations, that are not possible 
+  	  because of the current feedback
+  	* Example: say guess="1234" and feedback is "bbbb", then "1234" would be eliminated from the pool
 
+## 14. Whitebox
+```python
+def eliminate_from_pool(self, feedback, guess):
+	pool = self.pool + []
+
+	if guess is None or feedback == '':
+		return pool
+
+	guess_set = set(guess)
+	non_dots_count = len(feedback.replace('.', ''))
+	b_count = len(feedback) - len(feedback.replace('b', ''))
+
+	# remove all combinations that don't have exactly non_dots_count common elements
+	pool = list(filter(lambda x: len(set(x).intersect(guess_set)) != non_dots_count , pool))
+
+	# remove all permutations which are not possible due to the amount of b markers
+	# maximum b_count - 1 characters in another position leads to an impossible combination
+	# for example, b_count = 2, guess='1234', only combinations with 1 char not at right place removed, so only '1234', as we can't swap just one char
+	# 			   b_count = 3, guess = '1234', combos with max 2 char not at the same placed removed, so '1234', '1243', '2134', ...
+	# 			   b_count = 4, guess='1234', remove combinations with 3 chars not at the same place
+	# 					Note: even if after the permutation, we now have 3 in their correct place, at least 1 is still wrong
+
+	pool = list(filter(lambda x: set(x) == set(guess) and self.not_same_pos(x, guess) <= b_count - 1, pool)) 
+
+	return pool
+```
+
+## 14. Blackbox
+* not_same_pos(self, x, y):
+  * Precondition
+    * x is a valid code
+    * y is a valid guess
+    * x and y are both strings
+    * x and y contain the same characters, though not necessarily in the same order
+  * Postcondition
+    * returns amount of characters not in the same place
+
+## 14. Whitebox
+```Python
+def not_same_pos(self, x, y):
+	different = 0
+
+	for i in range(len(x)):
+		if x[i] != y[i]:
+			different += 1
+
+	return different
+```
+
+## 15. Blackbox
+* get_score(self, x, pool)
+  * Preconditions:
+    * x is a valid combination
+    * pool is a list (set) of valid combinations
+  * Postconditions:
+    returns the least amount of combinations that would be excluded from pool from all possible feedback responses
+
+## 15. Whitebox
+
+```Python
+ import itertools
+def get_score(self, x, pool):
+	pool_len = len(pool)
+	guess_combinations = [p for p in itertools.product("wb.", repeat=len(x))]
+	possible_feedbacks = list(filter(lambda x: self.validate_user_feedback(x, print_out=False), guess_combinations))
+
+	scores = [pool_len - len(eliminate_from_pool(feedback, x)) for feedback in possible_feedbacks]
+
+	return min(scores)
+``` 

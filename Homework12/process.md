@@ -205,7 +205,7 @@ def compare(self, guess, code):
 		else:
 			dots += 1
 
-	print('Feedback: {}'.format(('w' * w_s) + ('b' * 'b_s') + ('.' * dots)))
+	print('Feedback: {}'.format(('w' * w_s) + ('b' * b_s) + ('.' * dots)))
 
 	if w_s == 4:
 		return True
@@ -316,11 +316,11 @@ def validate_user_feedback(self, response, print_out=True):
 		if print_out:
 			print("Feedback not of length 4")
 		return False
-	elif len(response) - len(response.replace('.', '') > 2:
+	elif len(response) - len(response.replace('.', '')) > 2:
 		if print_out:
 			print("No way to have more than 2 points")
 		return False
-	elif len(response) - len(response.replace('b', '') == 1:
+	elif len(response) - len(response.replace('b', '')) == 1:
 		if print_out:
 			print("No way that only one character is not at its right position!")
 		return False
